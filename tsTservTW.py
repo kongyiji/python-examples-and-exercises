@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+from twisted.internet import protocol, reactor
+from time import ctime
+
+PORT = 21567
+
+class TSServProtocol(protocol.Protocol):
+    def connectionMade(self):
+        clnt = self.clnt = self.transport.getPeer().host
+        print '...connnected from:', clnt
+    def dataReceived(self, data):
+        self.transport.write('[%s] %s' % (
+            ctime(), data))
+            
+factory = protocol.Factory()
+factory.protocol = TSServProtocol
+print 'waiting for connnection...'
+reactor.listenTCP(PORT, factory)
+reactor.run()
