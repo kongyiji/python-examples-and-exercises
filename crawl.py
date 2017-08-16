@@ -89,6 +89,25 @@ class Crawler(object): # manager entire crawling process
                         print '... new, add to Q'
                     else:
                         print '... discarded, already in Q'
-                else:
+            else:
                     print '... discarded, already processed'
 
+def go(self): # process links in queue
+    while self.q:
+        url = self.q.pop()
+        self.getPage(url)
+
+def main():
+    if len(argv) > 1:
+        url = argv[1]
+    else:
+        try:
+            url = raw_input('Enter starting URL: ')
+        except (KeyboardInterrupt, EOFError):
+            url = ''
+            if not url: return
+            robot = Crawler(url)
+            robot.go()
+
+if __name__ == '__main__':
+    main()
