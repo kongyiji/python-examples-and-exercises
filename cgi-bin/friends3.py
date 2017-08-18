@@ -31,7 +31,7 @@ Friends CGI Demo</TITLE></HEAD>
 
 fradio = '<INPUT TYPE=radio NAME=howmany VALUE="%s" %s> %s\n'
 
-def showForm():
+def showForm(who, howmany):
     friends = ''
     for i in [0, 10, 25, 50, 100]:
         checked = ''
@@ -69,8 +69,8 @@ def process():
         if form.has_key('action') and \
                 form['action'].value == 'edit':
             error = 'Please select number of friends.'
-    else:
-        howmany = 0
+        else:
+            howmany = 0
 
     if not error:
         if form.has_key('action') and \
