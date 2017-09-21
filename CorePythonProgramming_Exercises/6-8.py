@@ -57,11 +57,20 @@ def hundreds_digit(i):
     'change hundreds digit to english version'
 
     t = i // 100
+    v = i % 100
     str = single_digit(t) + ' hundred'
-    if i % 100 != 0:
-        str = str + ' and '
 
-    return str
+    if v != 0:
+        str = str + ' and '
+    else:
+        return str
+
+    if v // 10 != 0:
+        str = str + tens_digit(v)
+        return str
+    else:
+        str = str + single_digit(v)
+        return str
 
 def main():
 
@@ -78,13 +87,6 @@ def main():
 
     elif in_int // 100 != 0:
         english_result = hundreds_digit(in_int)
-        in_int = in_int % 100
-        if in_int // 10 != 0:
-            english_result = english_result + tens_digit(in_int)
-        elif in_int != 0:
-            english_result = english_result + single_digit(in_int)
-        else:
-            pass
 
     elif in_int // 10 != 0:
         english_result = tens_digit(in_int)
