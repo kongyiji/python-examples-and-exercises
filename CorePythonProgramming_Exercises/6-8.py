@@ -79,14 +79,20 @@ def main():
     elif in_int // 100 != 0:
         english_result = hundreds_digit(in_int)
         in_int = in_int % 100
-        english_result = english_result + tens_digit(in_int)
+        if in_int // 10 != 0:
+            english_result = english_result + tens_digit(in_int)
+        elif in_int != 0:
+            english_result = english_result + single_digit(in_int)
+        else:
+            pass
 
     elif in_int // 10 != 0:
         english_result = tens_digit(in_int)
 
     else:
-        single_digit(in_int)
+        english_result = single_digit(in_int)
 
+    print(english_result)
 
 if __name__ == '__main__':
     main()
