@@ -31,11 +31,24 @@ def olduser():
         last_time[name] = localtime()
     else:
         print 'login incorrect'
-        
+
+def deluser():
+    name = raw_input('user name: ')
+    if name not in db.keys():
+        print 'not exist'
+    else:
+        del db[name]
+        print 'user', name, 'deleted'
+
+def showuser():
+    for name in db.keys():
+        print name, ':', db[name]
+
 def showmenu():
     prompt = """
 (N)ew User Login
 (E)xisting User Login
+(M)anager
 (Q)uit
 
 Enter choice: """
@@ -49,7 +62,7 @@ Enter choice: """
             except (EOFError, KeyboardInterrupt):
                 choice = 'q'
             print '\nYou picked: [%s]' % choice
-            if choice not in 'neq':
+            if choice not in 'mneq':
                 print 'invalid option, try again'
             else:
                 chosen = True
@@ -59,6 +72,36 @@ Enter choice: """
             newuser()
         if choice == 'e':
             olduser()
+        if choice == 'm':
+            managemenu()
+
+def managemenu():
+    prompt = """
+(1) Delete User
+(2) Show all user's name and password
+(Q)uit
+
+Enter choice: """
+
+    done = False
+    while not done:
+        chosen = False
+        while not chosen:
+            try:
+                choice = raw_input(prompt).strip()[0].lower()
+            except (EOFError, KeyboardInterrupt):
+                choice = 'q'
+            print '\nYou picked: [%s]' % choice
+            if choice not in '12q':
+                print 'invalid option, try again'
+            else:
+                chosen = True
+        if choice == 'q':
+            done = True
+        if choice == '1':
+            deluser()
+        if choice == '2':
+            showuser()
     
 if __name__ == '__main__':
     showmenu()
